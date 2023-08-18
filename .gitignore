@@ -4,3 +4,7 @@
 data/
 
 Library/__pycache__/
+
+dynamixel_sdk/__pycache__/
+
+dynio/__pycache__/

@@ -13,7 +13,7 @@ class TurnTable:
         self.dxl_io = dynio.dxl.DynamixelIO(self.port, baud_rate=1000000)
         self.motor = self.dxl_io.new_xl430(self.motor_id, 2)
         self.motor.set_position_mode()
-        self.velocity = 130
+        self.velocity = 100
 
     def position(self, x, block=True):
         x = x + 180

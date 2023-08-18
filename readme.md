@@ -1,3 +1,20 @@
+# Requirements
+
+```
+conda install pyserial
+conda install numpy
+conda install matplotlib
+pip install easygui
+conda install scipy
+pip install sshkeyboard
+``` 
+
+Add user to dialout group:
+
+```
+sudo adduser $USER dialout
+```
+
 
 # Dynamixel
 

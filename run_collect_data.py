@@ -1,12 +1,9 @@
 from Library import TurnTable
 from Library import Sonar
 import time
-import random
 import numpy
-from Library import Settings
 from Library import Misc
 from os import path
-from scipy import signal
 from matplotlib import pyplot
 import shutil
 

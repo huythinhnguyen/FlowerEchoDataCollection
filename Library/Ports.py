@@ -1,7 +1,7 @@
 import serial.tools.list_ports
 from Library import Settings
 
-def find_port(field, match):
+def find_port(field, match, verbose=False):
     ports = serial.tools.list_ports.comports()
     selected_port = None
     for current_port in ports:
@@ -12,6 +12,7 @@ def find_port(field, match):
         pid = current_port.pid
         serial_number = current_port.serial_number
         location = current_port.location
+        if verbose:print(field, match, str(hwid))
 
         if field == 'hwid' and match in str(hwid): selected_port = device
         if field == 'description' and match in str(description): selected_port = device

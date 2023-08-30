@@ -6,10 +6,15 @@ Created on Sat Jun 24 09:42:38 2017
 @author: dieter
 """
 
-from Library import Maestro
-from pyBat import Ports
-import gc
+# if the parent directory of this file is not in the search path, add it
+import os
+import sys
+if os.path.dirname(os.path.abspath(__file__)) not in sys.path:
+    sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
+import Maestro
+import gc
+import Ports
 
 class BoardDevice:
     def __init__(self, ser_port=False, verbose=False):

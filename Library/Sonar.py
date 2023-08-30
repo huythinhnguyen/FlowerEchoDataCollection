@@ -1,10 +1,9 @@
+import serial.tools.list_ports as list_ports
 import time
 import serial
 import numpy
 import struct
-from Library import Ports
-from Library import Settings
-
+import Ports
 
 # Color conventions
 # Green connected
@@ -14,9 +13,7 @@ from Library import Settings
 # switch off after each command
 
 class Sonar:
-    def __init__(self, verbose=False):
-        self.field = Settings.sonar_field
-        self.match = Settings.sonar_match
+    def __init__(self):
         self.id = id(self)
         self.product_key = 'FT231X USB UART'
         self.baud_rate = 3e6
@@ -30,7 +27,7 @@ class Sonar:
         self.adc_sample_freq = 3.0e5
         self.adc_n_channels = 2
         self.adc_n_bits = 12
-        self.verbose = verbose
+
         self.connection = None
 
     @property
@@ -48,12 +45,11 @@ class Sonar:
 
     def find_port(self, key=False):
         if not key: key = self.product_key
-        port = Ports.find_port(field=self.field, match=self.match)
+        port = Ports.get_port(key)
         return port
 
     def connect(self, port=False):
         if not port: port = self.find_port()
-        if self.verbose: print('+ Port to be used: ' + str(port))
         if not port: return False
         self.connection = serial.Serial(port, self.baud_rate)
         self.connection.rtscts = True
@@ -154,11 +150,10 @@ class Sonar:
             start_freq = int(command[1])
             end_freq = int(command[2])
             length = int(command[3])
-            self.set_signal(start_frequency=start_freq, end_frequency=end_freq, length=length)
+            self.set_signal(start_frequency=start_freq,end_frequency=end_freq,length=length)
             return True
         if command[0] == 'charge':
             self.build_charge()
-
 
 def convert_data(data, samples=7000):
     channels = 2
@@ -170,16 +165,14 @@ def convert_data(data, samples=7000):
     data[:, 1] = data[:, 1] - means[1]
     return data
 
-
 if __name__ == "__main__":
     from scipy import signal
-
-    S = Sonar(verbose=True)
+    S = Sonar()
     S.connect()
     S.blink()
     S.build_charge()
     S.set_signal()
-    for x in range(0, 5):
+    for x in range(0,5):
         time.sleep(1)
         start = time.time()
         data = S.measure()

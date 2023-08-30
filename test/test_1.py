@@ -17,10 +17,17 @@ def rotation_test_1(increment=5., verbose=True):
         time.sleep(.2)
         if a==175.: time.sleep(1.)
 
+def set_flower_to_angle(angle):
+    tt = TurnTable.TurnTable(offset=185., verbose=True)
+    tt.position(angle, block=False)
+    time.sleep(2.)
+
+        
 def neck_rotation_test():
     pass
 
 def main():
+    #return set_flower_to_angle(0.)
     return rotation_test_1()
     #return test_the_wrap360(np.asarray([90., 360., -180.]))
     #return collect_sonar_test_1()
